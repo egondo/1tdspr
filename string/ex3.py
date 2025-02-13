@@ -7,5 +7,14 @@ def substitui(frase: str, letra: str) -> str:
             resp = resp + c
     return resp
 
-teste = substitui("Hoje esta muito quente", 'e')
+def substitui_letras(frase: str, letras: str) -> str:
+    resp = ''
+    for c in frase:
+        if c in letras:
+            resp = resp + '*'
+        else:
+            resp = resp + c
+    return resp
+
+teste = substitui_letras("Hoje esta muito quente", 'eta')
 print(teste)
