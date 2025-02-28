@@ -1,0 +1,15 @@
+São Paulo 3 X 7 Portuguesa
+São Paulo 3 X 7 Palmeiras
+São Paulo 6 X 0 Corinthians
+São Paulo 6 X 6 Juventus
+São Paulo 7 X 4 Nacional
+Portuguesa 5 X 5 Palmeiras
+Portuguesa 6 X 7 Corinthians
+Portuguesa 7 X 2 Juventus
+Portuguesa 4 X 7 Nacional
+Palmeiras 7 X 7 Corinthians
+Palmeiras 0 X 2 Juventus
+Palmeiras 4 X 2 Nacional
+Corinthians 7 X 0 Juventus
+Corinthians 7 X 2 Nacional
+Juventus 0 X 4 Nacional
