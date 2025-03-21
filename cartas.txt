@@ -1,0 +1,1 @@
+[{"valor": "As", "naipe": "paus"}, {"valor": "7", "naipe": "copas"}, {"valor": "4", "naipe": "ouros"}, {"valor": "K", "naipe": "espadas"}]

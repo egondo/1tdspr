@@ -1,0 +1,18 @@
+4 questões
+
+1) sobre leitura de arquivos texto e tratamento de exceções
+2) lista de Dicionario: criação
+    pessoa = {
+        "nome": "João da Mota",
+        "email": "mota@gmail.com",
+        "cpf": "129.982.764-00",
+        "genero": "masculino"
+    }
+3) manipulação de dicionário: 
+    alterar uma entrada do dicionário (valor)
+    adicionar uma outra entrada no dicionário
+    pessoa['data'] = "03/06/1994"
+    remover uma chave do dicionário
+    pessoa.pop('genero')
+
+4) Gravar um arquivo json
