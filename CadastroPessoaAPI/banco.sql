@@ -15,4 +15,4 @@ create table tb_endereco(
     municipio varchar2(50),
     cep varchar2(15),
     id_pessoa number,
-    foreign key (id_pessoa) references pessoa(id));
+    foreign key (id_pessoa) references tb_pessoa(id));
