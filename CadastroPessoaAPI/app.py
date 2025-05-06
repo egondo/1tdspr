@@ -4,7 +4,8 @@ from flask_cors import CORS, cross_origin
 import negocio
 
 app = Flask("API de Pessoa")
-CORS(app, origins="http://127.0.0.1:5000")
+#CORS(app, origins="http://127.0.0.1:5000")
+CORS(app, origins="https://onetdspr.onrender.com")
 
 
 @app.route("/pessoas", methods=["POST"])
