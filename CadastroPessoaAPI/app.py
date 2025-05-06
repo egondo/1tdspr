@@ -1,9 +1,14 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS, cross_origin
+
 import negocio
 
 app = Flask("API de Pessoa")
+CORS(app, origins="http://127.0.0.1:5000")
+
 
 @app.route("/pessoas", methods=["POST"])
+@cross_origin()
 def grava_pessoa():
     dados = request.json
     try:

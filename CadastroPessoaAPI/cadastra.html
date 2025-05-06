@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form>
+        <p>Nome: <input type="text" id="nome" value="Joao Vitor" /></p>
+        <p>CPF: <input type="text" id="cpf" value="123.456.789-00" /></p>
+        <p>Telefone: <input type="text" id="telefone" value="(11) 5064-9292" /></p>
+        <p>Nascimento: <input type="text" id="nascimento" value="19/12/2000" /></p>
+        <p>
+            CEP: <input type="text" id="cep" />
+            <input type="button" id="btn_cep" value="busca" />
+        </p>
+        <p>Logradouro: <input type="text" id="logradouro" /></p>
+        <p>
+            Numero: <input type="text" id="numero" value="110" />
+            Complemento: <input type="text" id="complemento" />
+        </p>
+        <p>Bairro: <input type="text" id="bairro" /></p>
+        <p>Município: <input type="text" id="municipio" /></p>
+        <p><input type="button" id="btn_cad" value="cadastra" /></p>
+    </form>
+    <script>
+        btn_cep = document.getElementById("btn_cep")
+        btn_cep.addEventListener('click', function () {
+            cep = document.getElementById("cep")
+            let url = "https://viacep.com.br/ws/" + cep.value + "/json"
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    //alert(data.logradouro)
+                    log = document.getElementById("logradouro")
+                    log.value = data.logradouro
+                    bairro = document.getElementById("bairro")
+                    bairro.value = data.bairro
+                    municipio = document.getElementById("municipio")
+                    municipio.value = data.localidade
+                })
+        })
+
+        btn_cad = document.getElementById("btn_cad")
+        btn_cad.addEventListener('click', function () {
+            nome = document.getElementById("nome").value
+            telefone = document.getElementById("telefone").value
+            cpf = document.getElementById("cpf").value
+            nasc = document.getElementById("nascimento").value
+
+            log = document.getElementById("logradouro").value
+            bai = document.getElementById("bairro").value
+            num = document.getElementById("numero").value
+            compl = document.getElementById("complemento").value
+            mun = document.getElementById("municipio").value
+            cep = document.getElementById("cep").value
+
+            data = {
+                "pessoa": {
+                    "nome": nome, "telefone": telefone,
+                    "nascimento": nasc, "cpf": cpf
+                },
+
+                "endereco": {
+                    "logradouro": log, "bairro": bai, "numero": num,
+                    "complemento": compl, "municipio": mun,
+                    "cep": cep
+                }
+            }
+
+            url = "http://127.0.0.1:5000/pessoas"
+            fetch(url, {
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data)
+                })
+        })
+    </script>
+</body>
+
+</html>
