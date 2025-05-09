@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <h3>Aplicação de enquete</h3>
+        <div id="perguntas">
+        </div>
+        <input type="button" id="bt_cad" value="cadastra" />
+    </form>
+    <script>
+        function criaQuestao(info) {
+            return `<p>${info.numero}) ${info.questao}`
+        }
+
+        function criaRadio(info) {
+            aux = ''
+            for(let i = 0; i < info.itens.length; i++) {
+                s = `<p><label><input type="radio" name=${info.id} value="${info.itens[i]}" />${info.itens[i]}</label></p>` aux = aux + s
+            }
+            return aux
+        }
+
+        var url = "http://127.0.0.1:5000/perguntas/1"
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                //console.log(data)
+                div_dados = document.getElementById("perguntas")
+                for(let i = 0; i < data.length; i++) {
+                    div_dados.innerHTML = div_dados.innerHTML + criaQuestao(data[i])
+
+                    if (data[i].tipo === 'aberta') 
+                        div_dados.innerHTML = div_dados.innerHTML + "<input type=text/>"
+                    else if (data[i].tipo === 'unica')
+                        div_dados.innerHTML = div_dados.innerHTML + criaRadio(data[i])
+                }
+            })
+    </script>
+</body>
+</html>
+
+
+
+
+
