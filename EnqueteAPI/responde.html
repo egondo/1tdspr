@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <form>
         <h3>Aplicação de enquete</h3>
@@ -17,13 +19,57 @@
             return `<p>${info.numero}) ${info.questao}`
         }
 
-        function criaRadio(info) {
+        function criaEscolhas(info, tipo) {
             aux = ''
-            for(let i = 0; i < info.itens.length; i++) {
-                s = `<p><label><input type="radio" name=${info.id} value="${info.itens[i]}" />${info.itens[i]}</label></p>` aux = aux + s
+            for (let i = 0; i < info.itens.length; i++) {
+                s = `<p><label><input type="${tipo}" name=${info.id} value="${info.itens[i]}" />${info.itens[i]}</label></p>`
+                aux = aux + s
             }
             return aux
         }
+
+        function processaTexto(dado) {
+            return { "id": dado.name, "valor": dado.value }
+        }
+
+        function processaEscolhas(dado) {
+            if (dado.checked)
+                return { "id": dado.name, "valor": dado.value }
+            return null
+        }
+
+        //Associando evento ao botao cadastra
+        bt_cad = document.getElementById("bt_cad")
+        bt_cad.addEventListener('click', function () {
+            //alert("Cadastrando as respostas no banco")
+            let retorno = []
+            campos = document.getElementsByTagName("input")
+            for (i = 0; i < campos.length; i++) {
+                if (campos[i].type === "text")
+                    info = processaTexto(campos[i])
+                else
+                    info = processaEscolhas(campos[i])
+
+                if (info != null)
+                    retorno.push(info)
+            }
+            //console.log(retorno)
+            var url = "http://127.0.0.1:5000/respostas"
+            fetch(url, {
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(retorno)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data)
+                })
+
+        })
+        //finalizando evento
+
 
         var url = "http://127.0.0.1:5000/perguntas/1"
         fetch(url)
@@ -31,20 +77,18 @@
             .then(data => {
                 //console.log(data)
                 div_dados = document.getElementById("perguntas")
-                for(let i = 0; i < data.length; i++) {
+                for (let i = 0; i < data.length; i++) {
                     div_dados.innerHTML = div_dados.innerHTML + criaQuestao(data[i])
 
-                    if (data[i].tipo === 'aberta') 
-                        div_dados.innerHTML = div_dados.innerHTML + "<input type=text/>"
+                    if (data[i].tipo === 'aberta')
+                        div_dados.innerHTML = div_dados.innerHTML + `<input type="text" name="${data[i].id}" />`
                     else if (data[i].tipo === 'unica')
-                        div_dados.innerHTML = div_dados.innerHTML + criaRadio(data[i])
+                        div_dados.innerHTML = div_dados.innerHTML + criaEscolhas(data[i], "radio")
+                    else if (data[i].tipo === 'multipla')
+                        div_dados.innerHTML = div_dados.innerHTML + criaEscolhas(data[i], "checkbox")
                 }
             })
     </script>
 </body>
+
 </html>
-
-
-
-
-
