@@ -1,0 +1,11 @@
+
+resp <- 0
+
+leia um numero da sequencia: num
+enquanto num <> 0 faça 
+    acumulo num em resp
+    leia um numero da sequencia: num
+
+imprime resp
+
+

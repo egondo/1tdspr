@@ -1,0 +1,8 @@
+informe o nome do produto
+informe o preco
+informe o desc
+
+valor_desconto = preco * desc / 100
+novo_preco = preco - valor_desconto
+
+imprime novo_preco
