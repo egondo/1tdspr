@@ -19,4 +19,4 @@ else:
     #quit() #encerra o programa
 
 if fez_conta == True:
-    print(f"{num_a} {op} {num_b} = {resultado}")
+    print(f"{num_a} {op} {num_b} = {resultado:.2f}")
