@@ -36,6 +36,7 @@ def formata(p: dict) -> str:
 #Programa principal
 opcao = 0
 perguntas = []
+banco_respostas = []
 
 while opcao != 6:
     opcao = menu()
@@ -44,8 +45,21 @@ while opcao != 6:
         questao = cria_pergunta(num)
         perguntas.append(questao)
     
-    elif opcao == 2 or opcao == 3:
-        print("UNDER CONSTRUCTION")
+    elif opcao == 2:
+        print("Altera Pergunta:")
+        perg = cria_pergunta(0)
+        i = 0
+        alterado = False
+        while i < len(perguntas):
+            q = perguntas[i]
+            if q['num'] == perg['num']:
+                perguntas[i] = perg
+                alterado = True
+            i = i + 1
+        if alterado:
+            print("Pergunta alterada com sucesso!")
+        else:
+            print("Não foi possível alterar a pergunta")
     
     elif opcao == 4:
         for perg in perguntas:
@@ -54,9 +68,21 @@ while opcao != 6:
 
     elif opcao == 5:
         print("Aplicando as perguntas")
+        for perg in perguntas:
+            texto = formata(perg)
+            print(texto)
+            resposta = input("Resposta: ")
+            info = {"pergunta": perg, "resposta": resposta}
+            banco_respostas.append(info)
 
     elif opcao == 6:
         print("Saindo do sistema, nenhuma informação será gravada")
 
+    elif opcao == 7:
+        print("Exibindo as respostas dadas: ")
+        for registro in banco_respostas:
+            perg = registro['pergunta']
+            resp = registro['resposta']
+            print(f"{perg['texto']} -> {resp}")
     else:
         print("Opcao invalida")
