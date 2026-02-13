@@ -31,6 +31,8 @@ def compra(baralho: list) -> list:
     
 
 def to_string(carta: list) -> str:
+    valor = {1: "A", 11: "J", 12: "Q", 13: "K"}
+    naipe = {"ouros": "♦", "copas": "♥", "espadas": "♠", "paus": "♣"}
     resp = ""
     if carta[0] == 1:
         resp = "A"
