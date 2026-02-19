@@ -8,6 +8,18 @@ def embaralha(baralho: list):
         baralho[j] = aux
 
 
+def cria_truco() -> list:
+    deck = cria()
+    #removendo as cartas 8, 9 e 10 
+    i = 0 
+    while i < len(deck):
+        carta = deck[i]
+        if carta[0] >= 8 and carta[0] <= 10:
+            deck.pop(i)
+        else:
+            i = i + 1
+    return deck
+
 def cria() -> list:
     monte = []
     for valor in range(1, 14):
