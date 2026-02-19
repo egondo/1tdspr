@@ -25,12 +25,19 @@ def jogada_hum(mao: list) -> list:
     pos = int(input("Informe a posicao da carta: "))
     return mao.pop(pos)
 
+#1) alternancia das jogadas: na primeira rodada quem começa é o humano, e na segunda é a CPU e assim por diante
+#2) na melhor de 3, quem começa é quem ganha a rodada, com exceção da primeira que é alternada de acordo com a regra 1
+#3) alterar o get_valor para receber uma carta que representa a vira do truco, ou seja, a carta que define quais são as manilhas
+#4) jogada do ser humano deve contemplar a situação quando ele é o "pé"
+#5) idem para a jogada da cpu
+
 
 rodada_hum = 0
 rodada_cpu = 0
 
 while rodada_cpu < 12 and rodada_hum < 12:
     deck = baralho.cria_truco()
+    baralho.embaralha(deck)
     baralho.embaralha(deck)
     mao_hum = []
     mao_cpu = []
