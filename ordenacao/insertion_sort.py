@@ -1,3 +1,4 @@
+
 #recebe uma lista praticamente ordenada
 #apenas o último elemento está fora de lugar
 def organiza(lista: list, i: int):
@@ -8,9 +9,14 @@ def organiza(lista: list, i: int):
         i = i - 1
     lista[i] = valor
 
-lst = [4, 1, -8, 16, 10, 3, 2, 7, 15]
-organiza(lst, 1)
-organiza(lst, 2)
-organiza(lst, 3)
 
-print(lst)
+
+def ordena(lista: list):
+    for i in range(1, len(lst)):
+        organiza(lista, i)
+
+
+#lst = [4, 6, 10, 23, 56, 57, 62, 62, 78, 18]
+lst = [23, 9, 0, -3, 56, 12, 18, 62, 4, 19]
+ordena(lst)
+print(lst)    
