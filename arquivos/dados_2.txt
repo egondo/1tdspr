@@ -1,0 +1,8 @@
+Computational Thinking using Python: Edu Gondo
+Front-End Engineering: Ubirajara
+Building Relational Database: Marcel
+Domain Driven Design: Rafa Desiderio
+Artificial Inteligence & ChatBot: Vinicius
+Software Engineering and Business : Karina
+Nano Courses: Luis Carlos Silva
+Shift: Thiago Yamamoto
