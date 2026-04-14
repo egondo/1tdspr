@@ -3,7 +3,8 @@ CREATE TABLE "PACIENTE"
 	"NOME" VARCHAR2(150 BYTE), 
 	"NASCIMENTO" DATE, 
 	"CONVENIO" VARCHAR2(100 BYTE), 
-	 PRIMARY KEY ("PAC_ID"))
+	 PRIMARY KEY ("PAC_ID"));
+
 insert into paciente(nome, nascimento, convenio) 
      values('Henrique Dias', to_date('02/10/1980', 'DD/MM/YYYY'), 'Unimed');
 insert into paciente(nome, nascimento, convenio) 
