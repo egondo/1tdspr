@@ -25,8 +25,19 @@ def grava_triagem(triagem: dict, senha: int):
     triagem['data'] = data
     banco.insere_triagem(triagem)
 
-def atualiza_paciente_recepcao(paciente: dict, senha: int):
-    pass
+def rec_paciente_senha(senha: int) -> dict:
+    pac = banco.recupera_paciente_senha(senha)
+    return pac
+
+def grava_prontuario(pront: dict, senha: int):
+    atd = banco.recupera_atendimento_senha(senha)
+    pront['atend_id_fk'] = atd['atend_id']
+    pront['data'] = util.get_data_atual()
+    banco.insere_prontuario(pront)
+
+def atualiza_paciente_recepcao(paciente: dict):
+    banco.atualiza_paciente(paciente)
+    
 
 if __name__ == "__main__":
     #senha = pega_senha_totem('Isa Nunes', '55566677788')

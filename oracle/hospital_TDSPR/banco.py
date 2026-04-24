@@ -43,6 +43,16 @@ def insere_paciente(pac: dict):
             pac['id'] = new_var.getvalue()[0]
         conn.commit()
 
+def insere_prontuario(pront: dict):
+    sql = "INSERT INTO prontuario(data, descricao, observacao, atend_id_fk, func_id_fk) VALUES(to_date(:data, 'DD-MM-YYYY HH24:MI'), :descricao, :observacao, :atend_id_fk, :func_id_fk)"
+
+    with get_conexao() as conn:
+        with conn.cursor() as cur:
+            cur.execute(sql, pront)
+        conn.commit()
+
+
+
 def insere_atendimento(atend: dict):
     sql = "INSERT INTO atendimento(chegada, saida, desfecho, pac_id_fk, senha) VALUES(to_date(:chegada, 'DD-MM-YYYY HH24:MI'), to_date(:saida, 'DD-MM-YYYY HH24:MI'), :desfecho, :pac_id, :senha)"
 
@@ -58,6 +68,25 @@ def insere_triagem(triagem: dict):
         with conn.cursor() as cur:
             cur.execute(sql, triagem)
         conn.commit()
+
+def recupera_paciente_senha(senha: int) -> dict:
+    sql = "select pac_id, nome, to_char(nascimento, 'DD-MM-YYYY'), convenio, cpf from paciente where pac_id in (select pac_id_fk from atendimento where senha = :senha ORDER BY chegada desc FETCH FIRST 1 ROW ONLY)"
+    with get_conexao() as con:
+        with con.cursor() as cur:
+            cur.execute(sql, {"senha": senha})
+            reg = cur.fetchone()
+
+            resp = {"pac_id": reg[0], "nome": reg[1], "nascimento": reg[2], "convenio": reg[3], "cpf": reg[4]}
+    return resp
+
+def atualiza_paciente(pac: dict):
+    sql = "UPDATE paciente set nome = :nome, convenio = :convenio, nascimento = to_date(:nascimento, 'DD/MM/YYYY'), cpf = :cpf WHERE pac_id = :pac_id"
+
+    with get_conexao() as con:
+        with con.cursor() as cur:
+            cur.execute(sql, pac)
+        
+        con.commit()
 
 
 
