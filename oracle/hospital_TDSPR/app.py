@@ -3,7 +3,7 @@ from flask_cors import CORS, cross_origin
 import negocio
 
 app = Flask("API Hospital TDSPR")
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app)
 
 @app.route("/hospital/senha/<cpf>/<nome>", methods=["GET"])
 @cross_origin()
@@ -17,7 +17,8 @@ def get_senha(cpf: str, nome: str):
 @cross_origin()
 def grava_triagem(senha: int):
     triagem = request.json
-    negocio.grava_triagem(triagemn, senha)
+    print(triagem)
+    negocio.grava_triagem(triagem, senha)
     resp = {'title': 'Triagem cadastrada com sucesso', 'status': 200}
     return (resp, 200)
 

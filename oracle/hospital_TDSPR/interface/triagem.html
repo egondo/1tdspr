@@ -146,10 +146,9 @@
 
                 const dados = await resposta.json();
                 // Supondo que a API retorna um JSON como: { "senha": "A-123" }
-                alert(dados)
                 console.log(dados)
-                //const senhaRecebida = dados.senha; 
-                //exibirSenha(senhaRecebida);
+                const msgRecebida = dados.title; 
+                exibirMensagem(msgRecebida);
                 
             } catch (erro) {
                 console.error("Erro ao buscar a senha:", erro);
@@ -157,12 +156,12 @@
             }
         }
 
-        function exibirSenha(senha) {
+        function exibirMensagem(msg) {
             const divResultado = document.getElementById('resultado');
-            const spanSenha = document.getElementById('senha-exibicao');
+            const spanMsg = document.getElementById('resposta');
 
             // Insere a senha no HTML e torna a div visível
-            spanSenha.textContent = senha;
+            spanMsg.textContent = msg;
             divResultado.style.display = 'block';
         }
     </script>
