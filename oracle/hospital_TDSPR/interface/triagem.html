@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Senha</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #004494;
+        }
+        #resultado {
+            margin-top: 25px;
+            text-align: center;
+            display: none; /* Oculto por padrão */
+        }
+        #resultado p {
+            font-size: 18px;
+            color: #333;
+        }
+        .senha-destaque {
+            display: inline-block;
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #d9534f;
+            background-color: #f9f2f4;
+            padding: 15px 30px;
+            border-radius: 8px;
+            border: 2px dashed #d9534f;
+            letter-spacing: 5px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Solicitação de Senha</h2>
+        
+        <div class="form-group">
+            <label for="nome">Senha</label>
+            <input type="text" id="senha" placeholder="Senha">
+        </div>
+
+        <div class="form-group">
+            <label for="nome">Pressao</label>
+            <input type="text" id="pressao" placeholder="Pressao">
+        </div>
+
+        <div class="form-group">
+            <label for="nome">Batimento: </label>
+            <input type="text" id="batimento" placeholder="Batimento">
+        </div>
+
+        <button id="botao">Grava Triagem</button>
+
+        <div id="resultado">
+            <p>Resp:</p>
+            <span id="resposta" class="senha-destaque"></span>
+        </div>
+    </div>
+
+    <script>
+        botao = document.getElementById("botao")
+        botao.addEventListener('click', gravaTriagem)
+
+        async function gravaTriagem() {
+            const senha = document.getElementById('senha').value.trim()
+            const pressao = document.getElementById('pressao').value.trim()
+            const batimento = document.getElementById('batimento').value.trim()
+
+            const apiUrl = `http://127.0.0.1:5000/hospital/triagem/${senha}`
+            
+            try {
+                dadosEnvio = {
+                    "pressao": pressao,
+                    "batimento": batimento,
+                    "temperatura": "37.7",
+                    "peso": 78.9,
+                    "altura": 1.78,
+                    "sintomas": "Dor de cabeca",
+                    "func_id_fk": 1
+                }
+                
+
+                const resposta = await fetch(apiUrl, {
+                    method: 'POST',
+                    body: JSON.stringify(dadosEnvio),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (!resposta.ok) {
+                    throw new Error(`Erro na requisição: status ${resposta.status}`);
+                }
+
+                const dados = await resposta.json();
+                // Supondo que a API retorna um JSON como: { "senha": "A-123" }
+                alert(dados)
+                console.log(dados)
+                //const senhaRecebida = dados.senha; 
+                //exibirSenha(senhaRecebida);
+                
+            } catch (erro) {
+                console.error("Erro ao buscar a senha:", erro);
+                alert("Ocorreu um erro de conexão com o servidor. Tente novamente mais tarde.");
+            }
+        }
+
+        function exibirSenha(senha) {
+            const divResultado = document.getElementById('resultado');
+            const spanSenha = document.getElementById('senha-exibicao');
+
+            // Insere a senha no HTML e torna a div visível
+            spanSenha.textContent = senha;
+            divResultado.style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>
