@@ -27,6 +27,7 @@ def grava_triagem(triagem: dict, senha: int):
 
 def rec_paciente_senha(senha: int) -> dict:
     pac = banco.recupera_paciente_senha(senha)
+    print(pac)
     return pac
 
 def grava_prontuario(pront: dict, senha: int):

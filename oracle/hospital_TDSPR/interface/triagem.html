@@ -101,6 +101,26 @@
             <input type="text" id="batimento" placeholder="Batimento">
         </div>
 
+        <div class="form-group">
+            <label for="nome">Peso: </label>
+            <input type="text" id="peso" placeholder="Peso">
+        </div>
+
+        <div class="form-group">
+            <label for="nome">Altura: </label>
+            <input type="text" id="altura" placeholder="Altura">
+        </div>
+
+        <div class="form-group">
+            <label for="nome">Sintomas: </label>
+            <input type="text" id="sintomas" placeholder="Sintomas">
+        </div>
+
+        <div class="form-group">
+            <label for="nome">Temperatura: </label>
+            <input type="text" id="temperatura" placeholder="Temperatura">
+        </div>
+
         <button id="botao">Grava Triagem</button>
 
         <div id="resultado">
@@ -117,21 +137,24 @@
             const senha = document.getElementById('senha').value.trim()
             const pressao = document.getElementById('pressao').value.trim()
             const batimento = document.getElementById('batimento').value.trim()
+            const peso = document.getElementById('peso').value.trim()
+            const altura = document.getElementById('altura').value.trim()
+            const temperatura = document.getElementById('temperatura').value.trim()
+            const sintomas = document.getElementById('sintomas').value.trim()
 
-            const apiUrl = `http://127.0.0.1:5000/hospital/triagem/${senha}`
-            
+            //const apiUrl = `http://127.0.0.1:5000/hospital/triagem/${senha}`
+            const apiUrl = `https://tdspr.onrender.com/hospital/triagem/${senha}`
             try {
                 dadosEnvio = {
                     "pressao": pressao,
                     "batimento": batimento,
-                    "temperatura": "37.7",
-                    "peso": 78.9,
-                    "altura": 1.78,
-                    "sintomas": "Dor de cabeca",
+                    "temperatura": temperatura,
+                    "peso": peso,
+                    "altura": altura,
+                    "sintomas": sintomas,
                     "func_id_fk": 1
                 }
                 
-
                 const resposta = await fetch(apiUrl, {
                     method: 'POST',
                     body: JSON.stringify(dadosEnvio),

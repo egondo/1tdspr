@@ -22,5 +22,19 @@ def grava_triagem(senha: int):
     resp = {'title': 'Triagem cadastrada com sucesso', 'status': 200}
     return (resp, 200)
 
+@app.route("/hospital/paciente/<int:senha>", methods=["GET"])
+@cross_origin()
+def recupera_paciente_senha(senha: int):
+    print(f"Senha {senha}" )
+    pac = negocio.rec_paciente_senha(senha)
+    return (pac, 200)
+
+@app.route("/hospital/paciente", methods=["PUT"])
+@cross_origin()
+def altera_paciente():
+    paciente = request.json
+    negocio.atualiza_paciente_recepcao(paciente)
+    resp = {"title": "Paciente gravado com sucesso", "status": 200}
+    return (resp, 200)
 
 app.run(debug=True)
